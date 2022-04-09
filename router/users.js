@@ -5,13 +5,20 @@ import User from "../models/user.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-import { authLimiter, verifyToken } from "../config.js";
+import { authLimiter, verifyToken, adminOnly } from "../config.js";
 
 
 router.get("/welcome", verifyToken, (req, res) => {
     console.log(req.user.email);
     res.status(200).send("Welcome to our WebShop: "+ req.user.email);
-  });
+});
+
+router.get("/admin", verifyToken, adminOnly, (req, res) => {
+    console.log(req.user.email);
+    res.status(200).send("ADMIN: "+ req.user.email);
+});
+
+  
 
 
 // Register

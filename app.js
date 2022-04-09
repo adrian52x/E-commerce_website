@@ -6,6 +6,7 @@ import morgan from "morgan"
 import bodyParser from "body-parser"
 import session from "express-session";
 import helmet from "helmet";
+import nodemailer from "nodemailer";
 
 import { port, mongoURL, test } from "./config.js";
 import productRouter from "./router/products.js";
@@ -15,6 +16,8 @@ import userRouter from "./router/users.js";
 app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan('tiny')); // display in console HTTP requests
+
+
 
 
 //Setting up Database
@@ -32,7 +35,7 @@ app.use(userRouter);
 
 
 
-
+//Setting up automatic mail system
 
 
 

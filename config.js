@@ -11,7 +11,7 @@ let mongoURL = process.env.MONGO_URL;
 //Limit requests for /login 
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-	max: 3, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	max: 10, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 
@@ -40,9 +40,16 @@ const verifyToken = (req, res, next) => {
 };
 
 
+const adminOnly = async function (req, res, next) {
+  if( !(req.user.email === "adrian.nk52x@gmail.com") ){
+      return res.status(401).send("Access Denied");
+  }  
+  next();
+}
 
 
 
+const mailPass = process.env.MAIL_PASS;
 let test = process.env.TEST;
 
-export { port, mongoURL, authLimiter, verifyToken, test };
+export { port, mongoURL, authLimiter, verifyToken, adminOnly, mailPass, test };
