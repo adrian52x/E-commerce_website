@@ -19,7 +19,6 @@ app.use(morgan('tiny')); // display in console HTTP requests
 
 
 
-
 //Setting up Database
 mongoose
 .connect(mongoURL, {
