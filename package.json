@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "///": "FOR DEPLOYMENT",
-    "build": "node app.js",
-    "start": "npm install --prefix client && npm run start --prefix client",
+    "start": "node app.js",
+    "build": "npm install --prefix client && npm run start --prefix client",
 
     "//": "FOR DEVELOPMENT",
     "server": "cross-env PORT=3000 nodemon app.js",

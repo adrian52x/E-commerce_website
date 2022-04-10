@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --single --host 0.0.0.0",
+    "start": "sirv public --single --host localhost",
     "start2": "cross-env NODE_ENV=production webpack"
   },
   "devDependencies": {
