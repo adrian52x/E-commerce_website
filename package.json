@@ -1,15 +1,17 @@
 {
-  "name": "webshop-backend",
+  "name": "webshop-fullstack",
   "version": "1.0.0",
   "description": "",
   "type": "module",
   "scripts": {
     "///": "FOR DEPLOYMENT",
     "start": "node app.js",
-    "build": "npm install --prefix client && npm run start --prefix client",
+    "build": "npm install --prefix client && npm run start2 --prefix client",
+
     "//": "FOR DEVELOPMENT",
     "server": "cross-env PORT=3000 nodemon app.js",
     "client": "npm run dev --prefix client",
+
     "both": "concurrently \"npm run server\" \"npm run client\" "
   },
   "keywords": [],
