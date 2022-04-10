@@ -4,17 +4,13 @@
   "description": "",
   "type": "module",
   "scripts": {
-
-    "///": "FOR DEPLOYMENT", 
+    "///": "FOR DEPLOYMENT",
     "start": "node app.js",
     "build": "npm install --prefix client && npm run start --prefix client",
-
-    "//": "FOR DEVELOPMENT", 
+    "//": "FOR DEVELOPMENT",
     "server": "cross-env PORT=3000 nodemon app.js",
     "client": "npm run dev --prefix client",
-
     "both": "concurrently \"npm run server\" \"npm run client\" "
-    
   },
   "keywords": [],
   "author": "",
@@ -32,7 +28,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.8",
     "morgan": "^1.10.0",
-    "nodemailer": "^6.7.3"
+    "nodemailer": "^6.7.3",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "cross-env": "^7.0.3"
