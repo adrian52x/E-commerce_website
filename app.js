@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors"
 import morgan from "morgan"
 import bodyParser from "body-parser"
+import path from "path";
 import session from "express-session";
 import helmet from "helmet";
 import nodemailer from "nodemailer";
@@ -34,7 +35,6 @@ app.use(userRouter);
 
 
 
-//Setting up automatic mail system
 
 
 
@@ -42,6 +42,12 @@ app.use(userRouter);
 
 
 
+if (process.env.NODE_ENV == 'production') {
+    app.use(express.static('client/public'))
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'public', 'index.html'))
+    });
+}
 
 
 
