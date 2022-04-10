@@ -6,7 +6,7 @@
   "scripts": {
     "///": "FOR DEPLOYMENT",
     "start": "node app.js",
-    "build": "npm install --prefix client && npm run start --prefix client",
+    "////": "npm install --prefix client && npm run start --prefix client",
 
     "//": "FOR DEVELOPMENT",
     "server": "cross-env PORT=3000 nodemon app.js",
