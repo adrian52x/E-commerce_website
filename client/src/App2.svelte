@@ -108,3 +108,11 @@
 	  </div>
 	</div>
   </nav>
+
+
+
+  {#each Array(15) as _, i}
+    <SlideItem let:active>
+      <div class="rounded" class:primary-color={active} use:Ripple>{i + 1}</div>
+    </SlideItem>
+    {/each}

@@ -18,8 +18,6 @@
     }
 
 
-   
-
     const images = [
         {path: '/assets/images/dashboard/banner1.jpg', id: 'image1'},
         {path: '/assets/images/dashboard/banner2.jpg', id: 'image2'},
@@ -84,35 +82,74 @@
 </div>
 
 
-<div class="container special">       
+<div class="container special">
+            
   <MaterialApp>
-    <div class="d-flex justify-center mt-4 mb-4">      
-                    
-      <SlideGroup>
-        <span slot="previous"><ChevronLeftIcon size="20" /></span>
-        
-        {#each products as oneElement} 
-          <SlideItem>
-      
-            {#if oneElement.price > 1000}
-                <ProductCard1  productInfo ={oneElement}/>
-                {:else }
-                <ProductCard1 isProductDisabled=true, productInfo ={oneElement}/>
-            {/if}
-  
-          </SlideItem>
-        {/each} 
-  
-        <span slot="next"><ChevronRightIcon size="20" /></span>
-      </SlideGroup>
-    </div> 
+    <div class="d-flex justify-center mt-4 mb-4">
+            
+      {#each products as oneElement} 
+          {#if oneElement.price > 1000}
+              <ProductCard1  productInfo ={oneElement}/>
+              {:else }
+              <ProductCard1 isProductDisabled=true, productInfo ={oneElement}/>
+          {/if}
 
-  </MaterialApp>
+        
+      {/each}            
+                       
+    </div>
+ 
+
+   
+
+
+  
+    <style>
+      .rounded {
+        width: 150px;
+        height: 200px;
+        margin: 0 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--theme-dividers);
+      }
+    </style>
+    
+    <SlideGroup activeClass="white-text">
+      <span slot="previous">
+        <ChevronLeftIcon size="20" />
+      </span>
+      
+      {#each products as oneElement, i} 
+      <SlideItem let:active>
+        <div class="rounded" class:primary-color={active} use:Ripple>{i + 1}</div>
+      {#if oneElement.price > 1000}
+          <ProductCard1  productInfo ={oneElement}/>
+          {:else }
+          <ProductCard1 isProductDisabled=true, productInfo ={oneElement}/>
+      {/if}
+
+    </SlideItem>
+      {/each} 
+
+
+      <span slot="next">
+        <ChevronRightIcon size="20" />
+      </span>
+    </SlideGroup>
+    
+
+ </MaterialApp>
+
+
+
 </div>
 
-<hr>
+
 
 <div class="container popular">
+    
   <MaterialApp>
     <div class="d-flex justify-center mt-4 mb-4">
 
@@ -121,7 +158,8 @@
       {/each}
         
     </div>
-  </MaterialApp>
+</MaterialApp>
+
 </div>
 
 
@@ -131,7 +169,6 @@
   .container {
       margin-top: 30px;
       margin-bottom: 30px;
-      
   }
 
   .tabs {
@@ -146,9 +183,7 @@
   }
   .popular {
       display: none;
-      
   }
-
 
   
 </style>

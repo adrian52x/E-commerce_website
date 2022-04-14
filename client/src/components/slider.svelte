@@ -51,7 +51,7 @@
 <div id="carousel-container">
     <div id="carousel-images">
     {#each images as image (image.id)}
-        <img 
+        <img
             src={image.path} 
             alt={image.id} 
             id={image.id} 
@@ -103,8 +103,8 @@
       display: flex;
       justify-content: center;
       flex-wrap: nowrap;
-      -webkit-mask: linear-gradient(to right,transparent,black 40%,black 60%,transparent);
-      mask: linear-gradient(to right, transparent, black 40%, black 60%, transparent);
+      -webkit-mask: linear-gradient(to right,transparent,black 20%,black 80%,transparent);
+      mask: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
     }
 
     button {

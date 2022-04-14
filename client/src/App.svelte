@@ -12,12 +12,12 @@
     
 
     // TESTING FETCH
-    fetch(`${baseURL}/api/products`)
-            .then((Response) => Response.json())
-            .then((data) => {
-               console.log(data.webshop_products);    
+    //fetch(`${baseURL}/api/products`)
+          //  .then((Response) => Response.json())
+         //   .then((data) => {
+           //    console.log(data.webshop_products);    
             
-    });
+  //  });
 
 
 

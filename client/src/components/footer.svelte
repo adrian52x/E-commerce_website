@@ -1,8 +1,7 @@
 <style>
     .footer {
         height: 50px;
-        margin-top: 40px ;
-        border: 2px solid black;
+        margin-top: 50px ;
         background-color: rgb(63, 63, 63);
         color: white;
     }
@@ -49,7 +48,7 @@
         </p>
 
 
-        <p>© 2022 Adrian Enachi | All rights reserved</p>
+        <p>© {new Date().getFullYear()} Adrian Enachi | All rights reserved</p>
      
     </div>
     

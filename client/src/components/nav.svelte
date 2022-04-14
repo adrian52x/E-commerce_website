@@ -53,7 +53,7 @@
       </div>
 
       <!-- svelte-ignore a11y-missing-attribute LOGO-->
-      <a class="navbar-item" href="/"> <img src="logo8.jpg" width="150" height="50"></a>
+      <a class="navbar-item" href="/"> <img src="/assets/images/dashboard/logo8.jpg" width="150" height="50"></a>
     </div>
 
 
