@@ -4,6 +4,7 @@
         margin-top: 50px ;
         background-color: rgb(63, 63, 63);
         color: white;
+        
     }
 
 </style>

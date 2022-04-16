@@ -8,10 +8,13 @@
     import { SlideGroup, SlideItem, Ripple, Card, CardTitle, CardSubtitle, CardActions, Button, Icon, Divider, MaterialApp } from 'svelte-materialify';
   
 
+    import ProgressCircular from './progressCircular.svelte';
     import ProductCard1 from './product-card1.svelte';
     import ProductCard2 from './product-card2.svelte';
 
- 
+    
+
+    console.log(baseURL);
     let active = false;
     function toggle() {
       active = !active;
@@ -30,12 +33,13 @@
     ]
 
 
-    let products = [];
+    export let products = [];
 
     onMount(async() => {
         const { data } = await axios.get(`${baseURL}/api/products`)
         products = data.webshop_products;
         console.log(products);
+    
     })
 
     
@@ -50,6 +54,8 @@
         document.querySelector(".special").style.display = 'none';
     }
 
+    
+  
 </script>
 
 
@@ -65,18 +71,21 @@
     </Slider>
 </div>
 <hr>
+
+
+
 <!-- svelte-ignore a11y-missing-attribute -->
 <div class="container">
-    <div class="tabs is-fullwidth $tabs-border-bottom-width=5px ">
+    <div class="tabs is-fullwidth $tabs-border-bottom-width=5px">
         <ul>
           <li>
             <a on:click={() => specialOffers()} >
-              <span>Special offers</span>
+              <span style="font-size: large;">Special offers </span>
             </a>
           </li>
           <li>
             <a on:click={() => popularCategories()} >
-              <span>Popular products</span>
+              <span style="font-size: large;">Popular products</span>
             </a>
           </li>
         </ul>
@@ -85,6 +94,10 @@
 
 
 <div class="container special">       
+  
+  {#if products.length === 0}
+    <ProgressCircular/>
+  {:else}
   <MaterialApp>
     <div class="d-flex justify-center mt-4 mb-4">      
                     
@@ -99,18 +112,19 @@
                 {:else }
                 <ProductCard1 isProductDisabled=true, productInfo ={oneElement}/>
             {/if}
-  
           </SlideItem>
         {/each} 
   
         <span slot="next"><ChevronRightIcon size="20" /></span>
+        
       </SlideGroup>
     </div> 
 
   </MaterialApp>
+  {/if}
+
 </div>
 
-<hr>
 
 <div class="container popular">
   <MaterialApp>
@@ -124,7 +138,7 @@
   </MaterialApp>
 </div>
 
-
+<hr>
 
 <style>
     

@@ -52,6 +52,26 @@
 
 
 
+  <link rel="stylesheet" href="assets/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="assets/fontawesome/css/fontawesome.css">
+
+
+
+	<link rel="stylesheet" href="assets/fontawesome/css/all.css">
+	<link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="assets/fontawesome/css/brands.css">
+	<link rel="stylesheet" href="assets/fontawesome/css/brands.min.css">
+	<link rel="stylesheet" href="assets/fontawesome/css/regular.css">
+	<link rel="stylesheet" href="assets/fontawesome/css/regular.min.css">
+	<link rel="stylesheet" href="assets/fontawesome/css/solid.css">
+	<link rel="stylesheet" href="assets/fontawesome/css/solid.min.css">
+	<link rel="stylesheet" href="assets/fontawesome/css/svg-with-js.css">
+
+
+
+
+
+
 
 <div class="container">
     <Slider 

@@ -5,20 +5,17 @@
     import Nav from "./components/nav.svelte";
     import Footer from "./components/footer.svelte";
     import Dashboard from "./components/dashboard.svelte";
-    import Login from "./components/login.svelte"; 
+    import Login from "./pages/auth/Login.svelte";
+    import Register from "./pages/auth/Register.svelte";
 
-
+    import { Router, Link, Route } from 'svelte-routing';
+    import PCs from './pages/pcs.svelte';
+    import Phones from './pages/phones.svelte';
+    import TVs from './pages/tvs.svelte';
+    import Gaming from './pages/gaming.svelte';
+    import Watches from './pages/watches.svelte';
+    import Search from './pages/search.svelte';
     
-    
-
-    // TESTING FETCH
-    //fetch(`${baseURL}/api/products`)
-          //  .then((Response) => Response.json())
-         //   .then((data) => {
-           //    console.log(data.webshop_products);    
-            
-  //  });
-
 
 
 </script>
@@ -28,9 +25,29 @@
 
 <main>
 	
+    <Router>
+        <Nav/>
+        <div class="container">
+            <Route path="/" component={Dashboard} />
+            <Route path="category/computers" component={PCs} />
+            <Route path="category/phones" component={Phones} />
+            <Route path="category/tvs" component={TVs} />
+            <Route path="category/gaming" component={Gaming} />
+            <Route path="category/watches" component={Watches} />
 
-    <Nav/>
-    <Dashboard/>
+            <Route path="search" component={Search} />
+
+            <Route path="login" component={Login} />
+            <Route path="register" component={Register} />
+
+        </div>
+    </Router>
+
+   
+   
+    
+
+
     
 
     

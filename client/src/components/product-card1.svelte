@@ -16,6 +16,7 @@
     
     let show = false;
 
+    //Added to cart notification (1,6s)
     function showNotification() {
         show = !show;
         
@@ -27,7 +28,7 @@
     }
 
 
-    let activeInfo;
+    let isInfoDialogActive;
 
     export let productInfo;
     export let isProductDisabled;
@@ -38,25 +39,24 @@
 <!-- svelte-ignore missing-declaration -->
 
 
-    <Card class="card" disabled="{isProductDisabled}"  hover="true" style="max-width:200px; height: auto; margin-left: 15px;">
+    <Card class="card" disabled="{isProductDisabled}"  hover="true" style="max-width:200px; height: 600px; margin-left: 15px;">
         <img src="//picsum.photos/350" alt="background" />
         <CardTitle>{productInfo.title}</CardTitle>
         <CardSubtitle>{productInfo.description}</CardSubtitle>
         <CardSubtitle><b>{productInfo.price}</b></CardSubtitle>
         
         <Divider />
-        <div class="text-center"><Button on:click={() => (activeInfo = true)}>MORE INFO</Button></div>
+        <div class="text-center"><Button on:click={() => (isInfoDialogActive = true)}>MORE INFO</Button></div>
         
         <CardActions>
         
         <Row class="text-center">
            
             <Col cols={12}>
-              <Button on:click={() => { showNotification()} }>ADD TO CART</Button>
+              <Button on:click={() => { showNotification()} }>ADD TO CART <span class="icon is-small"><i class="fas fa-cart-arrow-down"></i></span></Button>
             </Col>
             <Col cols={12} class="mt-12">
               <Tooltip color="#008000" top bind:active={show}>
-                <span class="icon is-small"><i class="fas fa-cart-arrow-down"></i></span>
                 <span slot="tip" >Item added to your cart</span>
               </Tooltip>
             </Col>
@@ -65,7 +65,7 @@
         </CardActions>
 
         
-        <Dialog class="pa-4 text-center" bind:active={activeInfo}>
+        <Dialog class="pa-4 text-center" bind:active={isInfoDialogActive}>
             <i><p>Information</p></i><br>
             <p>{productInfo.title}</p>
             <p>{productInfo.description}</p>
