@@ -7,17 +7,23 @@ import bodyParser from "body-parser"
 import path from "path";
 import session from "express-session";
 import helmet from "helmet";
-import nodemailer from "nodemailer";
+import cookieParser from "cookie-parser";
 
-import { port, mongoURL, test } from "./config.js";
+import { port, mongoURL} from "./config.js";
 import productRouter from "./router/products.js";
 import userRouter from "./router/users.js";
+import nodemailerRouter from "./router/nodemailer.js";
 
-//app.use(helmet());
-app.use(cors());
+
+app.use(express.static('client/public'))
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(morgan('tiny')); // display in console HTTP requests
-
+app.use(cookieParser());
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:8080'
+}));
 
 
 //Setting up Database
@@ -31,27 +37,17 @@ mongoose
 
 
 app.use('/api/products', productRouter);
-app.use(userRouter);
+app.use('/api', userRouter);
+app.use('/api', nodemailerRouter);
 
 
 
 
 
-
-
-
-
-
-if (process.env.NODE_ENV == 'production') {
-    app.use(express.static('client/public'))
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'public', 'index.html'))
-    });
-}
 
 
 
 //-----------------------------------------------------
 const server = app.listen(port, () => {
-    console.log(`Server is listening on port ${port} `, server.address().port, test);
+    console.log(`Server is listening on port ${port} `, server.address().port);
 });

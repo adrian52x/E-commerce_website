@@ -1,1 +1,52 @@
-<h1>TVs</h1>
+<script>
+    import ProductCard1 from '../components/product-card1.svelte';
+    import { Container, Row, Col, MaterialApp } from 'svelte-materialify';
+    import { onMount } from 'svelte';
+    import { baseURL } from '../store/generalStore';
+    import axios from 'axios';
+    
+    const category = 'Tvs'
+    let tvs = [];
+    
+    onMount(async() => {
+        const { data } = await axios.get(`${baseURL}/api/products/${category}`)
+        tvs = data.webshop_products;
+        console.log(tvs); 
+        
+    
+    })
+
+</script>
+
+
+<style>
+    .title {
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+</style>
+
+
+
+
+{#if tvs.length > 0}
+
+    <Container>
+        <br>
+        <h1 class="title">| {tvs.length} items |</h1>
+    </Container>
+    <MaterialApp>
+         <Row>
+            {#each tvs as result}
+                <Col>
+                    <ProductCard1  productInfo ={result}/>
+                </Col>
+             {/each}
+        </Row>
+    </MaterialApp>
+{:else}
+    <div class="message-body">No results found</div>
+    
+{/if}

@@ -4,13 +4,14 @@
 
     import { ChevronLeftIcon, ChevronRightIcon } from 'svelte-feather-icons';
     import { onMount } from 'svelte';
-    import { baseURL } from '../store/generalStore';
-    import { SlideGroup, SlideItem, Ripple, Card, CardTitle, CardSubtitle, CardActions, Button, Icon, Divider, MaterialApp } from 'svelte-materialify';
+    import { baseURL, allProducts } from '../store/generalStore';
+    import { SlideGroup, SlideItem, Ripple, Card, CardTitle, CardSubtitle, CardActions, Button, Icon, Divider, Row, Col, MaterialApp } from 'svelte-materialify';
+    
   
 
     import ProgressCircular from './progressCircular.svelte';
     import ProductCard1 from './product-card1.svelte';
-    import ProductCard2 from './product-card2.svelte';
+   
 
     
 
@@ -38,6 +39,7 @@
     onMount(async() => {
         const { data } = await axios.get(`${baseURL}/api/products`)
         products = data.webshop_products;
+        allProducts.set(products);
         console.log(products);
     
     })
@@ -130,10 +132,14 @@
   <MaterialApp>
     <div class="d-flex justify-center mt-4 mb-4">
 
-      {#each products as oneElement} 
-        <ProductCard2  productInfo2 ={oneElement}/>
-      {/each}
-        
+      <Row>
+        {#each products as oneElement} 
+          <Col>
+            <ProductCard1  productInfo ={oneElement}/>
+          </Col>  
+        {/each}
+      </Row> 
+
     </div>
   </MaterialApp>
 </div>

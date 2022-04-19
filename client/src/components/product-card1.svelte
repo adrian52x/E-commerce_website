@@ -1,37 +1,46 @@
 <script>
-    import {
-    Card,
-    CardTitle,
-    CardSubtitle,
-    CardActions,
-    Button,
-    Icon,
-    Divider,
-    Row,
-    Col,
-    Tooltip,
-    Dialog,
-    MaterialApp } from 'svelte-materialify';
+    import {Card, CardTitle, CardSubtitle, CardActions, Button, Icon, Divider, Row, Col, Tooltip, Dialog, MaterialApp } from 'svelte-materialify';
+    import { cart } from '../store/generalStore';
 
-    
-    let show = false;
+    let addToCartNotifi = false;
 
-    //Added to cart notification (1,6s)
-    function showNotification() {
-        show = !show;
+
+    export let productInfo;
+
+    const addToCart = () => {
+      //Added to cart notification (1,6s)
+      addToCartNotifi = !addToCartNotifi;
         
-        if(show){
-            setTimeout(() => {
-                show = false;
-            }, 1600);
+      if(addToCartNotifi){
+        setTimeout(() => {
+          addToCartNotifi = false;
+        }, 1600);   
+      }  
+
+
+      // Add to cart and set quantity
+      for(let item of $cart){
+        if(item._id === productInfo._id){
+          item.quantity++;
+          $cart = $cart;
+          return
+          
         }
+      }
+      productInfo.quantity = 1
+      $cart = [...$cart, productInfo]
+
+      console.log($cart);
+
+      
     }
 
 
     let isInfoDialogActive;
 
-    export let productInfo;
     export let isProductDisabled;
+
+    let discount = 0.1
 </script>
 
 
@@ -41,22 +50,22 @@
 
     <Card class="card" disabled="{isProductDisabled}"  hover="true" style="max-width:200px; height: 600px; margin-left: 15px;">
         <img src="//picsum.photos/350" alt="background" />
-        <CardTitle>{productInfo.title}</CardTitle>
+        <CardTitle><p>{productInfo.title}</p></CardTitle>
         <CardSubtitle>{productInfo.description}</CardSubtitle>
         <CardSubtitle><b>{productInfo.price}</b></CardSubtitle>
         
-        <Divider />
-        <div class="text-center"><Button on:click={() => (isInfoDialogActive = true)}>MORE INFO</Button></div>
+        <Divider  />
+        <div class="text-center" ><Button on:click={() => (isInfoDialogActive = true)}>MORE INFO</Button></div>
         
         <CardActions>
         
-        <Row class="text-center">
+        <Row class="text-center" >
            
             <Col cols={12}>
-              <Button on:click={() => { showNotification()} }>ADD TO CART <span class="icon is-small"><i class="fas fa-cart-arrow-down"></i></span></Button>
+              <Button on:click={addToCart}>ADD TO CART <span class="icon is-small"><i class="fas fa-cart-arrow-down"></i></span></Button>
             </Col>
             <Col cols={12} class="mt-12">
-              <Tooltip color="#008000" top bind:active={show}>
+              <Tooltip color="#008000" top bind:active={addToCartNotifi}>
                 <span slot="tip" >Item added to your cart</span>
               </Tooltip>
             </Col>
@@ -69,7 +78,8 @@
             <i><p>Information</p></i><br>
             <p>{productInfo.title}</p>
             <p>{productInfo.description}</p>
-            <p><b>{productInfo.price}</b></p>
+            <p><b><s>{productInfo.price}</s></b></p>
+            <p><b>{productInfo.price*(1-discount)}</b></p>
             
         </Dialog>
 

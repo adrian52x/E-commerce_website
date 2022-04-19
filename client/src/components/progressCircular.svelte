@@ -1,4 +1,6 @@
 <script>
+
+    // Circular progress used on main page when data is loading
     import { ProgressCircular, MaterialApp } from 'svelte-materialify';
 </script>
   

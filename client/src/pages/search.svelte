@@ -6,13 +6,13 @@
     import { searchResultLength, searchResult, searchKeyword } from '../store/generalStore';
     
     
-
 </script>
 
 <style>
     .title {
         text-align: center;
         font-size: 20px;
+        margin-bottom: 20px;
     }
 
 </style>
@@ -24,25 +24,20 @@
 
     <Container>
         <br>
-        <h1 class="title">Search result: "{$searchKeyword}" -> {$searchResultLength} items</h1>
+        <h1 class="title">Search result: <i>{$searchKeyword}</i> | {$searchResult.length} items</h1>
     </Container>
-
-    {#each Array(Math.floor($searchResultLength/2)+1) as _ , index}
-    
-        <Row>
+    <MaterialApp>
+         <Row>
             {#each $searchResult as result, i}
-            
                 <Col>
                     <ProductCard1  productInfo ={result}/>
                     <p> {i+ 1}</p>
                 </Col>
-                
-            {/each}
+             {/each}
         </Row>
-
-    {/each}
+    </MaterialApp>
 {:else}
-    <div class="message-body">No results found: "{$searchKeyword}"</div>
+    <div class="message-body">No results found: <i>{$searchKeyword}</i></div>
     
 {/if}
 

@@ -1,41 +1,60 @@
 <script>
-  import { Router, Link, Route } from 'svelte-routing';
-  import Search from '../pages/search.svelte';
-  import { searchResultLength, searchResult, searchKeyword, baseURL } from '../store/generalStore';
+import { Router, Link, Route } from 'svelte-routing';
+import { authenticated, authenticatedUser, searchResultLength, searchResult, searchKeyword, baseURL, cart } from '../store/generalStore';
   
-  // default for Categories DROP DOWN 
-  let active = "false";
+// default for Categories DROP DOWN 
+let active = "false";
 
-  function isActive() {
-    if(active === 'active'){
+function isActive() {
+  if(active === 'active'){
       active = 'false'
-      } else {
+    } else {
       active = 'active'
-      }
+  } 
+}
+
+
+// Login / Logout buttons
+let auth = false;
+authenticated.subscribe(a => auth = a);
+  
+const logout = async () => {
+    await fetch(`${baseURL}/api/logout`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+    });
+    location.reload();
+    
+}
+
+// Binded to Search Bar
+let searchKey = '';
+
+// Items in cart
+let itemsInCart = 0
+$:{
+  let count = 0
+  for(let item of $cart){
+    count += item.quantity
   }
-
-
-  // Binded to Search Bar
-  let searchKey = '';
-
+  itemsInCart = count
+}
   
 
-  async function getSearchData(){
+async function getSearchData(){
+  const response = await fetch(`${baseURL}/api/products/search/${searchKey}`);
+  const repositoryData = await response.json();
 
-      const response = await fetch(`${baseURL}/api/products/search/${searchKey}`);
-      const repositoryData = await response.json();
-
-      // equivalent to: searchResult.set(repositoryData)
-      searchResult.set(repositoryData.webshop_products); // <================== set the store
-      searchResultLength.set(repositoryData.total_products);
-      searchKeyword.set(searchKey);
+  // equivalent to: searchResult.set(repositoryData)
+  searchResult.set(repositoryData.webshop_products); // <================== set the store
+  searchResultLength.set(repositoryData.total_products);
+  searchKeyword.set(searchKey);
       
-      console.log(repositoryData.webshop_products);
-      console.log(repositoryData.total_products);
-    };
+      
+};
 
     
-
 </script>
 
 <style>
@@ -54,6 +73,11 @@
     border: none;
     margin-left: 15px;
   }
+
+  .userEmail {
+    font-size: 15px;
+  }
+
 
 </style>
 
@@ -74,9 +98,8 @@
           <Link to = "category/gaming" class="navbar-item">Gaming</Link>
           <Link to = "category/watches" class="navbar-item">Watches</Link>
           <hr class="navbar-divider">
-          <div class="navbar-item">My account</div>
-          <Link to = "login" class="navbar-item">Log in</Link>
-          <Link to = "register" class="navbar-item">Sing up</Link>
+          <Link to = "category/all" class="navbar-item">All products</Link>
+          <hr class="navbar-divider">
         </div>
 
       </div>
@@ -94,7 +117,7 @@
   <!-- SEARCH BAR -->
     <div class="panel-block ">
       <p class="control has-icons-right">
-        <input class="input" type="text" bind:value={searchKey} placeholder="Search">
+        <input class="input" type="text" bind:value={searchKey} placeholder="Search e.g: iphone">
       </p>
 
       <span class="icon is-right">
@@ -115,30 +138,46 @@
   <div class="navbar-end">
     <div class="navbar-item">
       
-      
+
       <!-- Shopping cart -->
-      <a href = "/" class="navbar-item">
-        <span>Shopping cart &nbsp;</span>
-        <span class="icon is-small"><i class="fas fa-cart-arrow-down"></i></span>
-      </a>
+      {#if itemsInCart > 0 }
+        <Link to = "shopping-cart" class="navbar-item">
+          <span>Shopping cart <small>{itemsInCart}</small></span>
+          <span class="icon is-small"><i class="fas fa-cart-arrow-down"></i></span>
+        </Link>
+      {:else}
+        <Link to = "shopping-cart" class="navbar-item">
+          <span>Shopping cart &nbsp;</span>
+          <span class="icon is-small"><i class="fas fa-cart-arrow-down"></i></span>
+        </Link>
+      {/if}
+      
+      
       <!-- Contact -->
-      <a href = "/" class="navbar-item">
-        <span>Contact {searchKey} &nbsp;</span>
+      <Link to = "contact" class="navbar-item">
+        <span>Contact us &nbsp;</span>
         <span class="icon is-small"><i class="fa fa-envelope-open" aria-hidden="true"></i></span>
-      </a>
+      </Link>
       <!-- My account -->
       <div class="navbar-item has-dropdown is-hoverable">
-        <a href = "/" class="navbar-link">
+        <div  class="navbar-item">
           <span>My account &nbsp;</span>
           <span class="icon is-small"><i class="fa fa-address-book" aria-hidden="true"></i></span>
-        </a>
+        </div>
   
         <!-- Profile -->
         <div class="navbar-dropdown">
-          <a href = "/" class="navbar-item">Profile</a>
-          <hr class="navbar-divider">
-          <Link to = "login" class="navbar-item">Log in</Link>
-          <Link to = "register" class="navbar-item">Sing up</Link>
+          
+          {#if auth}
+            <div class="navbar-item userEmail">{$authenticatedUser.email}</div>
+            <Link to = "profile" class="navbar-item">Profile</Link>
+            <hr class="navbar-divider">
+            <Link to = "/" class="navbar-item" on:click={logout} >Log Out</Link>
+          {:else}
+            <Link to = "login" class="navbar-item">Log in</Link>
+            <Link to = "register" class="navbar-item ">Register</Link>
+          {/if}
+
         </div>
       </div>
     </div>
