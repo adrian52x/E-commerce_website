@@ -8,13 +8,13 @@
     export let productInfo;
 
     const addToCart = () => {
-      //Added to cart notification (1,6s)
+      //Added to cart notification (1s)
       addToCartNotifi = !addToCartNotifi;
         
       if(addToCartNotifi){
         setTimeout(() => {
           addToCartNotifi = false;
-        }, 1600);   
+        }, 1000);   
       }  
 
 

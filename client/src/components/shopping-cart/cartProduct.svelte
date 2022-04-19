@@ -1,7 +1,25 @@
 <script>
-
-
+import { cart } from '../../store/generalStore';  
 export let productInfo;
+
+let disabled = false;
+if(productInfo.quantity == 1) { disabled = true; }
+
+const addOne = () => {
+  productInfo.quantity++
+  $cart = $cart
+  if(productInfo.quantity > 1) { disabled = false; }
+}
+
+const deleteOne = () => {
+  productInfo.quantity--
+  $cart = $cart
+  if(productInfo.quantity == 1) { disabled = true; }
+}
+
+const deleteAll = () => {
+  $cart = $cart.filter(item => productInfo._id != item._id )
+}
 
 </script>
  
@@ -29,12 +47,14 @@ export let productInfo;
       </div>
       <nav class="level is-mobile">
         <div class="level-left">
-          <button class="button cartItem-btn">
+
+          <button class="button cartItem-btn" on:click={deleteOne} {disabled}>
             <span class="icon is-small"><i class="fas fa-minus"></i></span>
           </button>
-          <button class="button cartItem-btn">
+          <button class="button cartItem-btn" on:click={addOne}>
             <span class="icon is-small"><i class="fas fa-plus"></i></span>
           </button>
+
           <small><p>[{productInfo.quantity}] quantity</p></small>
 
         
@@ -42,6 +62,11 @@ export let productInfo;
       </nav>
     </div>
     <div class="media-right">
-      <button class="delete"></button>
+      <small>
+        <p>Remove from cart
+          <button class="delete" on:click={deleteAll}></button>
+        </p>
+      </small>
+      
     </div>
   </article>
