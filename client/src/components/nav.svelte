@@ -106,7 +106,7 @@ async function getSearchData(){
 
       <!-- LOGO -->
       <!-- svelte-ignore a11y-missing-attribute-->
-      <a href = "/" class="navbar-item" to="/"> <img src="/assets/images/dashboard/logo8.jpg" width="150" height="50"></a>
+      <a href = "/" class="navbar-item" > <img src="/assets/images/dashboard/logo8.jpg" width="150" height="50"></a>
     </div>
 
 

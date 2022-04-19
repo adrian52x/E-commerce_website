@@ -38,8 +38,6 @@
 
     let isInfoDialogActive;
 
-    export let isProductDisabled;
-
     let discount = 0.1
 </script>
 
@@ -48,7 +46,7 @@
 <!-- svelte-ignore missing-declaration -->
 
 
-    <Card class="card" disabled="{isProductDisabled}"  hover="true" style="max-width:200px; height: 600px; margin-left: 15px;">
+    <Card class="card" hover="true" style="max-width:200px; height: 600px; margin-left: 15px;">
         <img src="//picsum.photos/350" alt="background" />
         <CardTitle><p>{productInfo.title}</p></CardTitle>
         <CardSubtitle>{productInfo.description}</CardSubtitle>

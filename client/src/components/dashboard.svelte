@@ -103,23 +103,17 @@
   <MaterialApp>
     <div class="d-flex justify-center mt-4 mb-4">      
                     
-      <SlideGroup>
-        <span slot="previous"><ChevronLeftIcon size="20" /></span>
-        
+        <Row>
         {#each products as oneElement} 
-          <SlideItem>
-      
-            {#if oneElement.price > 1000}
-                <ProductCard1  productInfo ={oneElement}/>
-                {:else }
-                <ProductCard1 isProductDisabled=true, productInfo ={oneElement}/>
+            {#if oneElement.discount > 0}
+                <Col>
+                  <ProductCard1  productInfo ={oneElement}/>
+                </Col>
             {/if}
-          </SlideItem>
+          
         {/each} 
-  
-        <span slot="next"><ChevronRightIcon size="20" /></span>
+      </Row>
         
-      </SlideGroup>
     </div> 
 
   </MaterialApp>
@@ -134,9 +128,11 @@
 
       <Row>
         {#each products as oneElement} 
-          <Col>
-            <ProductCard1  productInfo ={oneElement}/>
-          </Col>  
+          {#if oneElement.popular == true}
+            <Col>
+              <ProductCard1  productInfo ={oneElement}/>
+            </Col>  
+          {/if}
         {/each}
       </Row> 
 

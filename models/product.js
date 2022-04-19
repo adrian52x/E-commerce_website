@@ -19,7 +19,9 @@ const webshopSchema = new Schema({
     category: {
         type: String,
         required: true
-    }
+    },
+    discount: { type: Number, default: 0 },
+    popular: { type: Boolean, default: false },
 });
 
 const Product = model('product', webshopSchema);

@@ -14,6 +14,14 @@ export let allProducts = writable(null);
 export let authenticated = writable(false);
 export let authenticatedUser = writable(null);
 
+
+
+
 // Shopping cart
-export let cart = writable([]);
+export const cart = writable([]);
+const store = localStorage.cart
+cart.subscribe((value => localStorage.cart = JSON.stringify(value)))
+
+// tried to store Cart data in localStorage but it is removed after page refresh - !!???
+
 

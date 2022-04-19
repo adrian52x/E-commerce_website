@@ -49,21 +49,37 @@ router.get("/search/:key", async (req, res) => {
 });
 
 
-//Post a new product
+//Create a new product
 router.post("/", async (req, res) => {
-    const { title, description, price, category } = req.body
-    const newProduct = new Product({ title, description, price, category })
+    const { title, description, price, category, discount, popular } = req.body
+    const newProduct = new Product({ title, description, price, category, discount, popular })
 
     try {
         const product = await newProduct.save()
         if(!product){
             throw new Error("There was an error saving product")
         }
-        res.status(200).json(product)
+        return res.status(200).json(product)
     } catch (error) {
-        res.status(500).json({ message: "something wrong" })
+        return res.status(400).json({ message: "something wrong" })
     }
-}) 
+});
+
+//update a product
+router.patch("/:id", async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id)
+        Object.assign(product, req.body)
+        product.save();
+        
+        return res.status(200).json(product)
+    } catch (error) {
+        return res.status(404).json({ message: "Not found " })
+    }
+        
+
+    
+}); 
 
 
 //Delete a product by ID
