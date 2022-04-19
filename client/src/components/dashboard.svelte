@@ -5,24 +5,17 @@
     import { ChevronLeftIcon, ChevronRightIcon } from 'svelte-feather-icons';
     import { onMount } from 'svelte';
     import { baseURL, allProducts } from '../store/generalStore';
-    import { SlideGroup, SlideItem, Ripple, Card, CardTitle, CardSubtitle, CardActions, Button, Icon, Divider, Row, Col, MaterialApp } from 'svelte-materialify';
-    
-  
+    import { Row, Col, MaterialApp } from 'svelte-materialify';
 
     import ProgressCircular from './progressCircular.svelte';
     import ProductCard1 from './product-card1.svelte';
    
-
-    
-
     console.log(baseURL);
     let active = false;
     function toggle() {
       active = !active;
     }
 
-
-   
 
     const images = [
         {path: '/assets/images/dashboard/banner1.jpg', id: 'image1'},
@@ -33,9 +26,9 @@
         {path: '/assets/images/dashboard/banner6.jpg', id: 'image6'},
     ]
 
-
     export let products = [];
 
+    //get all Products
     onMount(async() => {
         const { data } = await axios.get(`${baseURL}/api/products`)
         products = data.webshop_products;
@@ -44,8 +37,6 @@
     
     })
 
-    
-    
     function specialOffers() {
         document.querySelector(".special").style.display = 'block';
         document.querySelector(".popular").style.display = 'none';
@@ -56,10 +47,7 @@
         document.querySelector(".special").style.display = 'none';
     }
 
-    
-  
 </script>
-
 
 
 

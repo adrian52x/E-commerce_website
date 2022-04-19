@@ -38,7 +38,7 @@
 
     let isInfoDialogActive;
 
-    let discount = 0.1
+    
 </script>
 
 
@@ -50,8 +50,18 @@
         <img src="//picsum.photos/350" alt="background" />
         <CardTitle><p>{productInfo.title}</p></CardTitle>
         <CardSubtitle>{productInfo.description}</CardSubtitle>
-        <CardSubtitle><b>{productInfo.price}</b></CardSubtitle>
-        
+        {#if productInfo.discount > 0}
+          <div class="level-left">
+              &nbsp;<s>{productInfo.price}</s>&nbsp;
+              <big><p><b>{productInfo.price*(1-productInfo.discount)}</b></p></big>
+          </div>
+          
+              
+        {:else}
+          <CardSubtitle><big><b>{productInfo.price}</b></big></CardSubtitle>
+        {/if}
+
+
         <Divider  />
         <div class="text-center" ><Button on:click={() => (isInfoDialogActive = true)}>MORE INFO</Button></div>
         
@@ -76,8 +86,14 @@
             <i><p>Information</p></i><br>
             <p>{productInfo.title}</p>
             <p>{productInfo.description}</p>
-            <p><b><s>{productInfo.price}</s></b></p>
-            <p><b>{productInfo.price*(1-discount)}</b></p>
+            {#if productInfo.discount > 0}
+              <p><b><s>{productInfo.price}</s></b></p>
+              <big><p><b>{productInfo.price*(1-productInfo.discount)}</b></p></big>
+            {:else}
+              <p><b>{productInfo.price}</b></p>
+            {/if}
+            
+            
             
         </Dialog>
 

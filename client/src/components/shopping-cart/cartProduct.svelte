@@ -12,13 +12,21 @@ const addOne = () => {
 }
 
 const deleteOne = () => {
-  productInfo.quantity--
-  $cart = $cart
-  if(productInfo.quantity == 1) { disabled = true; }
+  
+  //dont let quantity to go below 1
+  if(productInfo.quantity > 1){
+    productInfo.quantity--
+    $cart = $cart
+  }else{
+    disabled = true;
+  }
+  
 }
 
 const deleteAll = () => {
+  
   $cart = $cart.filter(item => productInfo._id != item._id )
+
 }
 
 </script>
@@ -40,7 +48,7 @@ const deleteAll = () => {
     <div class="media-content">
       <div class="content">
         <p>
-          <strong>{productInfo.title}</strong> <small>@{productInfo.category}</small> <small>{productInfo.price}</small>
+          <strong>{productInfo.title}</strong> <small>@{productInfo.category}</small> <big><b>{productInfo.price}</b></big> 
           <br>
           {productInfo.description} 
         </p>
@@ -55,7 +63,7 @@ const deleteAll = () => {
             <span class="icon is-small"><i class="fas fa-plus"></i></span>
           </button>
 
-          <small><p>[{productInfo.quantity}] quantity</p></small>
+          <small><p>[ {productInfo.quantity} ] <i>quantity</i></p></small>
 
         
         </div>
