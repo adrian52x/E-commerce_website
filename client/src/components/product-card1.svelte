@@ -72,11 +72,15 @@
             <Col cols={12}>
               <Button on:click={addToCart}>ADD TO CART <span class="icon is-small"><i class="fas fa-cart-arrow-down"></i></span></Button>
             </Col>
-            <Col cols={12} class="mt-12">
-              <Tooltip color="#008000" top bind:active={addToCartNotifi}>
-                <span slot="tip" >Item added to your cart</span>
-              </Tooltip>
+            <Col>
+              <span>
+                <br>
+                <Tooltip color="#008000" top bind:active={addToCartNotifi}>
+                  <span slot="tip" >Item added to your cart</span>
+                </Tooltip>
+              </span>
             </Col>
+          
           </Row>
 
         </CardActions>
