@@ -1,6 +1,6 @@
 <script>
 import { Link } from 'svelte-routing';
-import { baseURL } from '../../store/generalStore';
+import { baseURL, authenticatedUser, authenticated } from '../../store/generalStore';
 
 let email = '';
 let password = '';
@@ -15,7 +15,8 @@ const submitLog = async () => {
             password: password
         })
     });
-    location.replace("/")
+    
+    location.replace("/");
 }
 </script>
 

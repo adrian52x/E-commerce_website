@@ -28,6 +28,7 @@
     //Get user data and save in store
     onMount(async () => {
         try {
+
             const response = await fetch(`${baseURL}/api/user`, {
             headers: {'Content-Type': 'application/json'},
             credentials: 'include',
@@ -50,6 +51,7 @@
         }
 
     });
+
 
 </script>
 

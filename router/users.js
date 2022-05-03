@@ -62,10 +62,6 @@ router.post("/register", authLimiter, async (req, res) => {
             password: encryptedUserPassword,
         });
 
-        // Create token
-        //const token = jwt.sign({ user_id: user._id, email }, process.env.TOKEN_KEY, { expiresIn: "5h",});
-        // save user token
-        //user.token = token;
 
         // return new user
         return res.status(201).json(user);
